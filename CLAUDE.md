@@ -182,13 +182,20 @@ when it was started):
    API + example), `PLATFORM_SUPPORT.md` (matrix row + limitations), `ARCHITECTURE.md` (any new
    shared infra), `REFERENCES.md` if new sources; rewrite `HANDOFF.md` (concise: state, next group,
    known issues). Commit `docs: …`. `git push origin main`.
-5. Start the **next coordinator** (fresh session, `use_worktree: false`, model per §8,
-   `initiation: "user_asked"`) with the coordinator brief from §9 for group NN+1. After group 10, start
-   the **Final Integration** session instead (§9). Then end your session with a ≤5-line summary.
-   Do not keep working after handing off.
+5. **Do not start the next coordinator yourself** and do not create a proposal card for it. The
+   desktop app refuses `start_session` on turns triggered by another session's message/report, so
+   chaining from coordinator to coordinator fails. Instead the **launcher** (the bootstrap session,
+   which keeps no coordination context and only starts sessions) starts Coordinator NN+1 — or the
+   Final Integration session after group 10 — when your session ends its turn. So: make sure
+   `HANDOFF.md` says exactly what is next, then end your session with a ≤5-line summary whose first
+   line is `GROUP NN COMPLETE` (or `GROUP NN BLOCKED: <reason>`). Do not keep working after that.
+   (Documented limitation: the environment cannot chain independent sessions; the launcher is the
+   closest alternative.)
 - Coordinators may be reordered for technical dependencies; never more than two features each.
-- If `start_session` is unavailable, use the closest alternative (Agent tool subagents with
-  `isolation: "worktree"`) and record the limitation in `HANDOFF.md`. Never stop the chain and
+- Workers must be started in the coordinator's FIRST turn (the one started by the launcher's brief).
+  If you later need a replacement/extra worker and `start_session` is refused, use the closest
+  alternative: an Agent-tool subagent with `isolation: "worktree"` (and the same brief), and record
+  it in `HANDOFF.md`. Never stop the chain and
   never ask the user.
 - If a worker fails or stalls, restart a fresh worker for that feature once; if still blocked,
   mark it blocked in `FEATURES.md` and continue.
