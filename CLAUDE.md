@@ -150,13 +150,18 @@ intensity controls where relevant, replay & pause via `PlaybackControls`, intera
 Kotlin usage `code` string), reusable controls in `controls/`. Demos must use the public API only.
 
 ## 7. Orchestration protocol (distributed, no master coordinator)
-**Mechanism.** The desktop app refuses to start sessions from turns triggered by automation or by
-another session's report, so sessions cannot chain each other. Orchestration therefore runs from a
-recurring **scheduled task** `textmotion-orchestrator` (hourly). Every run is a **fresh, independent
-coordinator session**. It handles exactly one group, using two **worker subagents**. Each worker is
-an Agent-tool subagent with a fresh context and `isolation: "worktree"`, so it gets its own branch.
-State passes only through Git and these docs. Group 01 ran as separate desktop sessions; groups 02+
-use the scheduled mechanism. This is a documented environment limitation.
+**Environment limitation (documented):** the desktop app only lets a session start other sessions
+in a turn that came from a human. Turns triggered by automation or by another session's report
+cannot start sessions; there they become proposal cards. Creating a scheduled task was also
+blocked by the permission classifier. So the chain works like this:
+- A coordinator starts its **two worker sessions in its first turn**. That turn came from the
+  user's click or message, so starting sessions is allowed there.
+- At the end, the coordinator **proposes the next coordinator** as a card (`start_session`
+  `initiation: "own_initiative"`, fresh context). The owner starts each group with one click on that
+  card. Every coordinator is still a fresh, independent session.
+- If the owner later allows scheduled tasks, a recurring task can run each group instead, with the
+  same steps and worker subagents in worktrees. Use a lock file, `.orchestration/lock`, so only one
+  run works at a time.
 
 | Coordinator | Feature A | Feature B |
 |---|---|---|
@@ -172,31 +177,32 @@ use the scheduled mechanism. This is a documented environment limitation.
 | 10 | Decrypted Text | Text Effect |
 
 
-**Lock.** `.orchestration/lock` (gitignored) holds `<group> <ISO timestamp>`. A run that finds a
-lock younger than 6 h exits immediately ("busy"). A stale lock (≥ 6 h) means the previous run died:
-take over the same group, inspect any existing `feat-*` branches first, and reuse finished work.
 
-**Coordinator run (group NN = the `Next:` line of `HANDOFF.md`):**
-1. `cd` to the project, read `CLAUDE.md` + `HANDOFF.md`. If HANDOFF says `ALL DONE` → exit. Check the
-   lock as above, then write it. Make sure `main` is clean (commit stray work first).
-2. Launch **both workers in parallel** with the Agent tool: `isolation: "worktree"`,
-   `run_in_background: true`, `model`/`effort` from §8, prompt = the worker brief in §9 filled for that
-   feature. Never more than two workers per coordinator.
-3. When a worker returns, review its branch (`git diff main...<branch> --stat`, then read the key
-   files) against §2/§4/§5. Request fixes by sending a message to that worker (SendMessage with its
-   agent id), or fix them yourself if they are small. Merge with `git merge --no-ff <branch>`. Expect
-   conflicts in `DemoRegistry.kt` and shared infra. Compile all targets (§10), fix, commit.
+**Coordinator NN** (fresh session, main checkout, branch `main`):
+1. Read `CLAUDE.md` and `HANDOFF.md` (the `Next:` line names your group). Make sure `main` is
+   clean; commit stray work first.
+2. **In your first turn**, start two worker sessions in parallel with `start_session`
+   (ToolSearch `select:mcp__ccd_session__start_session`): `initiation: "user_asked"`,
+   `context: "fresh"`, `use_worktree: true`, `wake_when_done: true`,
+   `branch_name: "feat-<effect-kebab>"`, model/effort from §8. Use the worker brief in §9 plus the
+   group notes in HANDOFF.md. Never start more than two workers.
+   If `start_session` is refused, use Agent-tool subagents instead (`isolation: "worktree"`,
+   `run_in_background: true`) with the same brief.
+3. When a worker reports back, review its branch: `git branch | grep feat`, then
+   `git diff main...<branch> --stat`, then read the key files and check §2/§4/§5. Send fixes back to
+   the same worker with SendMessage. Merge with `git merge --no-ff refs/heads/<branch>`; conflicts in
+   `DemoRegistry.kt` are normal. Compile all targets (§10), fix, commit.
 4. Once both features are merged: update `FEATURES.md`, `API.md`, `PLATFORM_SUPPORT.md`,
-   `ARCHITECTURE.md` (new infra), `REFERENCES.md`. Rewrite `HANDOFF.md`, setting `Next:` to the
-   following group, or to `FINAL INTEGRATION` after group 10. Commit `docs: …`, run
-   `git push origin main`, delete the lock and end the run. Never start the next group in the
-   same run.
-5. **Final Integration** runs work the same way (≤ two groups' worth of fixes per run; leave
-   `Next: FINAL INTEGRATION (continued)` if more is needed). When finished, set HANDOFF to
-   `Next: ALL DONE`. If the scheduled-tasks tools are available, disable `textmotion-orchestrator`.
+   `ARCHITECTURE.md` (new infra) and `REFERENCES.md`. Rewrite `HANDOFF.md`: set `Next:` to the next
+   group (or `FINAL INTEGRATION` after group 10) and add notes for the next workers. Commit, then
+   `git push origin main`.
+5. Propose the next coordinator as an `own_initiative` card. Title: "Coordinator NN+1: A + B".
+   Prompt: "You are Coordinator NN+1 of TextMotion: features A and B. Read CLAUDE.md and follow §7."
+   Add a short `background`. After group 10, propose "TextMotion Final Integration" instead (§9).
+   End with a summary of at most 5 lines whose first line is `GROUP NN COMPLETE`.
 - Groups may be reordered for technical dependencies; never more than two features per coordinator.
 - If a worker fails, retry once with a fresh worker. If it is still blocked, mark the feature ⛔ in
-  `FEATURES.md` with the reason and continue. Never ask the user anything.
+  `FEATURES.md` with the reason and continue. Never ask the user questions.
 
 ## 8. Model / effort selection
 - Coordinators: Opus, effort `medium`.
@@ -226,7 +232,7 @@ take over the same group, inspect any existing `feat-*` branches first, and reus
 > merge, do not push). Do NOT edit root docs (coordinator does). No visual testing. Final reply ≤15
 > lines: branch name, files, new shared infra, compile results per target, limitations.
 
-**Coordinator run**: the scheduled task prompt; it points here (§7).
+**Coordinator brief**: "You are Coordinator NN of TextMotion: features <A> and <B>. Read `CLAUDE.md` and follow §7." Background: one paragraph on the project and the HANDOFF state.
 
 **Final Integration brief** (max two coordination groups' worth of fixes per integration session;
 start more fresh integration sessions if needed): full compile of all targets, `publishToMavenLocal`

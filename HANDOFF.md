@@ -7,7 +7,7 @@
 - No new shared infra in C01; reusable patterns (per-piece blur layer, analytic spring,
   glyph-clipped gradient) are listed in ARCHITECTURE.md "Decisions added by feature work".
 
-**Next:** Group 02 — TextMorph + TextPressure (scheduled coordinator run, CLAUDE.md §7).
+**Next:** Group 02 — TextMorph + TextPressure (CLAUDE.md §7; started from the proposal card left by Coordinator 01).
 
 **Group 02 worker notes:** TextPressure must create reusable variable-font infra under `internal/font/` (per-glyph wght/wdth/ital variation with quantized caching, no per-frame font creation; check `FontVariation.Settings` support on Android + skiko; bundle a variable font such as Roboto Flex with its OFL license, documented in REFERENCES.md) for VariableProximity (group 05) to reuse. TextMorph: shared chars glide between old/new positions (Motion layoutId keyed by char+occurrence), entering/exiting chars fade, GlyphCache/no per-frame measuring, graphemes + RTL/complex scripts (fall back to whole-word crossfade where per-glyph morph would break shaping).
 
