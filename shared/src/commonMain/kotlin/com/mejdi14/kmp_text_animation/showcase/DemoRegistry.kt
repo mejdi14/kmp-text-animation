@@ -2,6 +2,7 @@ package com.mejdi14.kmp_text_animation.showcase
 
 import androidx.compose.runtime.Composable
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.textShimmerDemo
 
 enum class DemoCategory { Entrance, Continuous, Transition, Interactive, Scroll }
 
@@ -20,7 +21,7 @@ object DemoRegistry {
     // Each feature replaces ONLY its own line with `xxxDemo`, defined in `showcase/demos/<Name>Demo.kt`.
     val demos: List<AnimationDemo> = listOf(
         placeholderDemo("blur-text", "Blur Text", "Text sharpens from a soft blur as each word or letter fades into focus.", DemoCategory.Entrance),
-        placeholderDemo("text-shimmer", "Text Shimmer", "A soft band of light sweeps across the text on a loop.", DemoCategory.Continuous),
+        textShimmerDemo,
         placeholderDemo("text-morph", "Text Morph", "Characters fluidly morph from one string into the next.", DemoCategory.Transition),
         placeholderDemo("text-pressure", "Text Pressure", "Letter weight and width swell as your pointer comes near.", DemoCategory.Interactive),
         placeholderDemo("text-scramble", "Text Scramble", "Random glyphs shuffle and resolve into the final message.", DemoCategory.Transition),
