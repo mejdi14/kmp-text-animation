@@ -18,7 +18,10 @@ be argued to fall under that restriction. Before any public release, review the 
 and/or ask the author for permission. Nothing has been published.
 
 ## Fonts
-(Feature sessions add any bundled font here with its license, e.g. Roboto Flex — SIL OFL 1.1.)
+(Feature sessions add any bundled font here with its license.)
+- **Roboto Flex** (Google Fonts, github.com/googlefonts/roboto-flex) — SIL Open Font License 1.1;
+  bundled as `textmotion/src/commonMain/composeResources/font/roboto_flex.ttf` (~1.7 MB), license at
+  `composeResources/files/licenses/RobotoFlex-OFL.txt`. Used by TextPressure (and VariableProximity).
 
 ## Additional sources
 (Feature sessions append articles, specs or code consulted.)

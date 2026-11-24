@@ -7,8 +7,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 |---|---|---|---|---|
 | 1 | BlurText | C01 | ✅ | merged from `feat-blur-text`; all 5 effects, custom keyframes, loop, hover/click replay; see `docs/features/blur-text.md` |
 | 2 | TextShimmer | C01 | ✅ | merged from `feat-text-shimmer`; see `docs/features/text-shimmer.md` |
-| 3 | TextMorph | C02 | ⬜ | |
-| 4 | TextPressure | C02 | ⬜ | |
+| 3 | TextMorph | C02 | ✅ | merged from `feat-text-morph`; char+occurrence keys, spring/tween glide, enter/exit fade, per-word morph for complex scripts; see `docs/features/text-morph.md` |
+| 4 | TextPressure | C02 | ✅ | merged from `feat-text-pressure`; all reference props + idle/ripple extras; created variable-font infra (`internal/font/`, bundled Roboto Flex); see `docs/features/text-pressure.md` |
 | 5 | TextScramble | C03 | ⬜ | |
 | 6 | TrueFocus | C03 | ⬜ | |
 | 7 | SplitText | C04 | ⬜ | |

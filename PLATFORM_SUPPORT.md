@@ -26,8 +26,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 |---|---|---|---|---|---|
 | BlurText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | GraphicsLayer + BlurEffect; Android < 12 uses multi-pass offset blur approximation |
 | TextShimmer | ✅ | ✅ | ✅ | ✅ | saveLayer + SrcAtop gradient; no capability needed |
-| TextMorph | | | | | |
-| TextPressure | | | | | |
+| TextMorph | ✅ | ✅ | ✅ | ✅ | Pure Compose drawing (translate/scale + drawText); no capability needed |
+| TextPressure | ⚠️ / ✅ 8+ | ✅ | ✅ | ✅ | Variable font via skiko `makeClone` / Android `Font(file, variationSettings)` (API 26+); Android < 8 synthesizes weight/width/slant |
 | TextScramble | | | | | |
 | TrueFocus | | | | | |
 | SplitText | | | | | |
@@ -51,3 +51,9 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
   times on rings of offsets — softer edges and more draw calls than a true Gaussian. Units are dp
   instead of CSS px; no `rootMargin`; no reduced-motion handling.
 - **TextShimmer**: multi-line text sweeps all lines at once (band spans the layout width).
+- **TextMorph**: complex scripts (Arabic, Hebrew, Indic…) morph per word, not per glyph, to keep
+  shaping intact. Only Spring/Tween transitions; variants limited to alpha/scale/offset.
+- **TextPressure**: Android < 8.0 has no font variations → nearest `FontWeight` + synthetic bold,
+  horizontal scale for width, shear for italic. Roboto Flex has no `ital` axis, so italic uses
+  `slnt` (−10°). Axis values are quantized (wght 20, wdth 4, ital 0.1) to bound the typeface set.
+  Pointer tracked inside the component only (web original tracks the whole window).

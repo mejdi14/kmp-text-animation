@@ -92,3 +92,16 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
     `visualDuration`/`bounce` spring as a pure function of time.
   - *Glyph-clipped gradient* (TextShimmer): `saveLayer` → draw text → gradient rect with
     `BlendMode.SrcAtop` → restore (equivalent of CSS `background-clip: text`).
+- **C02 new shared infra:**
+  - `AnimatedTextLayout(onLayoutChanged = …)`: called during measurement whenever a new
+    `SegmentedTextLayout` is built (never per frame) — lets an effect diff old/new geometry (TextMorph).
+  - `PointerTracker.pressCount` (mutable int state): incremented on each press inside the element.
+  - **Variable fonts** (`internal/font/`, public `VariableFont` + `VariationAxisRange`):
+    `FontVariationKey` packs wght/wdth/ital/opsz into a `Long`; `VariationQuantizer` quantizes axis
+    values; `rememberVariableFontFamilies(font)` loads the bytes once and caches one `FontFamily`
+    per key (skiko: `FontMgr.makeFromData` once + `makeClone(variations)` per key; Android: file
+    copied to `cacheDir/textmotion-fonts`, `Font(file, variationSettings)` on API 26+;
+    `SyntheticVariation` fallback = FontWeight + scaleX + shear). `VariableGlyphCache[glyph, key]`
+    measures each glyph once per key; prewarm it off the hot path. **Reuse for VariableProximity.**
+  - Pattern: TextMorph identity keys (`internal/morph/MorphKeys.kt`, lowercased value + occurrence)
+    and a closed-form Motion stiffness/damping/mass spring (`MorphMotion.kt`).

@@ -70,3 +70,33 @@ TextShimmer(
 )
 // TextShimmer("Generating code...", durationMillis = 1000)
 ```
+
+### TextMorph
+Shared characters glide to their new positions when `text` changes; others fade in/out (Motion Primitives Text Morph).
+```kotlin
+TextMorph(
+    text, modifier, style,
+    transition = TextMorphTransition.Spring(),   // stiffness 280, damping 18, mass 0.3; or Tween(300, MotionEaseInOut)
+    enter = TextMorphVariant.Hidden, exit = TextMorphVariant.Hidden,  // alpha/scale/offsetX/offsetY
+    ignoreCase = true, animateInitial = false,
+    granularity = null /* auto: Character, or Word for complex scripts */, renderMode = SegmentRenderMode.Auto,
+    softWrap = true, maxLines = Int.MAX_VALUE, speed = 1f, controller = null, onFinished = null,
+)
+// var word by remember { mutableStateOf("Hello") }; TextMorph(word)
+```
+
+### TextPressure
+Per-letter weight/width/italic/alpha respond to pointer distance on a variable font (React Bits Text Pressure).
+```kotlin
+TextPressure(
+    text, modifier, style, font = VariableFont.RobotoFlex,
+    width = true, weight = true, italic = true, alpha = false, flex = true, stroke = false, scale = false,
+    radius = 0.5f, smoothing = 0.5f, idle = TextPressureIdle.None /* Wave, Pulse */, idleSpeed = 1f,
+    clickRipple = true, textColor = Color.Unspecified, pressureColor = Color.Unspecified,
+    strokeColor = Color(0xFFFF0000), strokeWidth = 3.dp, minFontSize = 24.sp, uppercase = true,
+    pointerInteraction = PointerInteraction.Pointer, controller = null,
+)
+// TextPressure("Compressa!", modifier = Modifier.fillMaxWidth().height(200.dp))
+```
+`VariableFont(name, resource, weight, width, italic, slant, opticalSize)` (+ `VariationAxisRange`) is public
+so callers can supply their own variable font; `VariableFont.RobotoFlex` is bundled.
