@@ -3,6 +3,7 @@ package io.github.mejdi14.textmotion.internal
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,6 +33,8 @@ internal class PointerTracker {
     var isActive: Boolean by mutableStateOf(false)
     var isPressed: Boolean by mutableStateOf(false)
     var isTouch: Boolean = false
+    /** Incremented on every press (click/tap) inside the element; [position] holds where. */
+    var pressCount: Int by mutableIntStateOf(0)
     private var lastInput = TimeSource.Monotonic.markNow()
 
     internal fun touched() { lastInput = TimeSource.Monotonic.markNow() }
@@ -58,6 +61,7 @@ internal fun Modifier.trackPointer(tracker: PointerTracker, enabled: Boolean = t
                         tracker.position = change.position
                         tracker.isActive = true
                         tracker.isPressed = change.pressed
+                        if (event.type == PointerEventType.Press) tracker.pressCount++
                     }
                     PointerEventType.Release -> {
                         tracker.isPressed = false
