@@ -150,7 +150,7 @@ intensity controls where relevant, replay & pause via `PlaybackControls`, intera
 Kotlin usage `code` string), reusable controls in `controls/`. Demos must use the public API only.
 
 ## 7. Orchestration protocol (distributed, no master coordinator)
-**Active mechanism (since 2026-11-24): scheduled task `textmotion-coordinator`** (hourly, owner
+**Active mechanism (since 2026-11-24): scheduled task `textmotion-coordinator`** (every 5 min with a one-command lock gate, so the next group starts within minutes of the previous one finishing; owner
 approved, Auto mode; prompt at `~/.claude/scheduled-tasks/textmotion-coordinator/SKILL.md`). Each run
 is a fresh coordinator: it takes `.orchestration/lock` (gitignored; stale after 8 h), skips if
 main is dirty or a `feat-<A>`/`feat-<B>` worktree was modified in the last 3 h, then runs ONE group
