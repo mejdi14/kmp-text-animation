@@ -1,5 +1,6 @@
 package io.github.mejdi14.textmotion.internal.blurtext
 
+import io.github.mejdi14.textmotion.internal.blurRadiusForSigma
 import io.github.mejdi14.textmotion.BlurTextDirection
 import io.github.mejdi14.textmotion.BlurTextEffect
 import io.github.mejdi14.textmotion.BlurTextKeyframe

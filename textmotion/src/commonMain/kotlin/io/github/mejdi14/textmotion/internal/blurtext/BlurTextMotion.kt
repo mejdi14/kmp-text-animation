@@ -402,7 +402,6 @@ internal class BlurTextEvaluator(private val spec: BlurTextSpec, private val tim
  * Converts a CSS `blur()` standard deviation (px) to the radius expected by Compose's
  * `BlurEffect`, which maps radius → sigma as `0.57735 * r + 0.5` on every platform.
  */
-internal fun blurRadiusForSigma(sigma: Float): Float = if (sigma <= 0.5f) sigma.coerceAtLeast(0f) else (sigma - 0.5f) / 0.57735f
 
 /** Reference hover-dim blur: `clamp(blur * 0.3, 2, 6)` px. */
 internal fun focusDimBlur(blur: Float): Float = (blur * 0.3f).coerceIn(2f, 6f)
