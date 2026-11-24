@@ -9,8 +9,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 | 2 | TextShimmer | C01 | ✅ | merged from `feat-text-shimmer`; see `docs/features/text-shimmer.md` |
 | 3 | TextMorph | C02 | ✅ | merged from `feat-text-morph`; char+occurrence keys, spring/tween glide, enter/exit fade, per-word morph for complex scripts; see `docs/features/text-morph.md` |
 | 4 | TextPressure | C02 | ✅ | merged from `feat-text-pressure`; all reference props + idle/ripple extras; created variable-font infra (`internal/font/`, bundled Roboto Flex); see `docs/features/text-pressure.md` |
-| 5 | TextScramble | C03 | ⬜ | |
-| 6 | TrueFocus | C03 | ⬜ | |
+| 5 | TextScramble | C03 | ✅ | merged from `feat-text-scramble`; all reference props, deterministic seeded schedule (`seed`), stable width; see `docs/features/text-scramble.md` |
+| 6 | TrueFocus | C03 | ✅ | merged from `feat-true-focus`; auto/manual (hover/touch) modes, 4 frame styles, smooth/spring easing; extracted shared `SegmentBlurRenderer`; see `docs/features/true-focus.md` |
 | 7 | SplitText | C04 | ⬜ | |
 | 8 | AuroraText | C04 | ⬜ | |
 | 9 | VariableProximity | C05 | ⬜ | |

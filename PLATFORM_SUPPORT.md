@@ -28,8 +28,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 | TextShimmer | ✅ | ✅ | ✅ | ✅ | saveLayer + SrcAtop gradient; no capability needed |
 | TextMorph | ✅ | ✅ | ✅ | ✅ | Pure Compose drawing (translate/scale + drawText); no capability needed |
 | TextPressure | ⚠️ / ✅ 8+ | ✅ | ✅ | ✅ | Variable font via skiko `makeClone` / Android `Font(file, variationSettings)` (API 26+); Android < 8 synthesizes weight/width/slant |
-| TextScramble | | | | | |
-| TrueFocus | | | | | |
+| TextScramble | ✅ | ✅ | ✅ | ✅ | Pure canvas text drawing (GlyphCache); no capability needed |
+| TrueFocus | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-word blur via shared `SegmentBlurRenderer` (BlurEffect); Android < 12 multi-pass fallback; glow = layered strokes |
 | SplitText | | | | | |
 | AuroraText | | | | | |
 | VariableProximity | | | | | |
@@ -57,3 +57,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
   horizontal scale for width, shear for italic. Roboto Flex has no `ital` axis, so italic uses
   `slnt` (−10°). Axis values are quantized (wght 20, wdth 4, ital 0.1) to bound the typeface set.
   Pointer tracked inside the component only (web original tracks the whole window).
+- **TextScramble**: random glyphs are drawn centred in the slot of the glyph they replace; wide
+  glyphs overflow their slot (as on the web). Slot count uses graphemes (reference: UTF-16 units).
+- **TrueFocus**: same Android < 12 blur approximation as BlurText. Glow is 3 widening translucent
+  strokes instead of CSS `drop-shadow`. Word boxes come from the text layout's line box; wrapping is
+  the text layout's, not flex-wrap. `controller.seekTo` is ignored (continuous effect).

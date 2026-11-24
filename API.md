@@ -100,3 +100,30 @@ TextPressure(
 ```
 `VariableFont(name, resource, weight, width, italic, slant, opticalSize)` (+ `VariationAxisRange`) is public
 so callers can supply their own variable font; `VariableFont.RobotoFlex` is bundled.
+
+### TextScramble
+Random glyphs shuffle every tick and resolve left-to-right into the text (Motion Primitives Text Scramble).
+```kotlin
+TextScramble(
+    text, modifier, style, durationMillis = 800, tickMillis = 40,
+    characterSet = TextCharsets.Alphanumeric, seed = null /* Int for reproducible output */,
+    trigger = AnimationTrigger.OnAppear, speed = 1f, controller = null, onFinished = null,
+)
+// TextScramble("Hello world", trigger = AnimationTrigger.OnVisible(once = false))
+```
+
+### TrueFocus
+One word is sharp inside an animated frame; the others are blurred (React Bits True Focus).
+```kotlin
+TrueFocus(
+    text, modifier, style, separator = " ", manualMode = false,
+    frameStyle = TrueFocusFrameStyle.Brackets /* Box, Underline, Highlight */,
+    order = TrueFocusOrder.Sequential /* Random */, easing = TrueFocusEasing.Smooth /* Spring */,
+    blurAmount = 5.dp, focusScale = 1f, borderColor = Color(0xFF008000), highlightColor = Color.Unspecified,
+    glowColor = Color.Transparent, animationDurationMillis = 500, pauseBetweenMillis = 1000,
+    cornerSize = 16.dp, borderWidth = 3.dp, unfocusedOpacity = 1f,
+    pointerInteraction = PointerInteraction.Pointer, renderMode = SegmentRenderMode.Auto,
+    speed = 1f, controller = null, onFocusChanged = null /* (index, word) -> Unit */,
+)
+// TrueFocus("True Focus", manualMode = true, glowColor = Color(0x9900FF00))
+```

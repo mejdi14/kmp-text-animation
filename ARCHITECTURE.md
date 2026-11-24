@@ -86,7 +86,7 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
   - *Per-piece blur* (`internal/blurtext/BlurTextRenderer.kt`): one reusable `GraphicsLayer` per
     piece slot (from `LocalGraphicsContext`) with `BlurEffect(TileMode.Decal)`, recorded in the draw
     phase; sigma from CSS px via radius = (σ − 0.5)/0.57735; multi-pass ring fallback when
-    `!PlatformCapabilities.supportsRenderEffect`. Candidate for promotion to `internal/` if
+    `!PlatformCapabilities.supportsRenderEffect`. Promoted to `internal/SegmentBlurRenderer` in C03 (see below); was a candidate if
     another effect (TrueFocus, ScrollReveal, TextEffect) needs per-segment blur.
   - *Analytic spring* (`springRemaining` in `BlurTextMotion.kt`) reproducing Motion's
     `visualDuration`/`bounce` spring as a pure function of time.
@@ -105,3 +105,11 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
     measures each glyph once per key; prewarm it off the hot path. **Reuse for VariableProximity.**
   - Pattern: TextMorph identity keys (`internal/morph/MorphKeys.kt`, lowercased value + occurrence)
     and a closed-form Motion stiffness/damping/mass spring (`MorphMotion.kt`).
+- **C03 new shared infra:**
+  - `internal/SegmentBlurRenderer` (promoted from BlurText): `drawBlurred(layout, segment, slot, sigmaPx,
+    alpha, color, tintColor, tint, brush)` records each blurred segment into a reusable `GraphicsLayer`
+    with `BlurEffect` (effect re-created only when the radius changes), Android < 12 multi-pass ring
+    fallback; `blurRadiusForSigma` moved with it. Used by BlurText and TrueFocus; **reuse for
+    ScrollReveal, TextEffect, SplitText blur variants.** Call `release()` on dispose.
+  - Pattern: TextScramble's pure seeded schedule (`internal/textscramble/ScrambleMath.kt`, hash of
+    seed/tick/slot → glyph) — reuse for DecryptedText.
