@@ -3,6 +3,7 @@ package com.mejdi14.kmp_text_animation.showcase
 import androidx.compose.runtime.Composable
 import com.mejdi14.kmp_text_animation.showcase.demos.blurTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.textMorphDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textShimmerDemo
 
 enum class DemoCategory { Entrance, Continuous, Transition, Interactive, Scroll }
@@ -23,7 +24,7 @@ object DemoRegistry {
     val demos: List<AnimationDemo> = listOf(
         blurTextDemo,
         textShimmerDemo,
-        placeholderDemo("text-morph", "Text Morph", "Characters fluidly morph from one string into the next.", DemoCategory.Transition),
+        textMorphDemo,
         placeholderDemo("text-pressure", "Text Pressure", "Letter weight and width swell as your pointer comes near.", DemoCategory.Interactive),
         placeholderDemo("text-scramble", "Text Scramble", "Random glyphs shuffle and resolve into the final message.", DemoCategory.Transition),
         placeholderDemo("true-focus", "True Focus", "A focus frame hops between words while the rest stay blurred.", DemoCategory.Continuous),
