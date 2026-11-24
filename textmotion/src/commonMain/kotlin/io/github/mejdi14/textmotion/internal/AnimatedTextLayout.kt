@@ -46,6 +46,9 @@ internal class LayoutHolder {
  *   glyph boxes (blur, glitch offsets, scale). The text origin is shifted by this amount.
  * @param holder optional externally-owned holder, so modifiers placed before the layout (pointer
  *   tracking, etc.) can read the current geometry.
+ * @param onLayoutChanged called during measurement each time a new [SegmentedTextLayout] is built
+ *   (text, style, constraints or segmentation changed). Never called per frame. Effects that
+ *   animate between layouts (e.g. TextMorph) diff the old and new geometry here.
  */
 @Composable
 internal fun AnimatedTextLayout(
@@ -59,6 +62,7 @@ internal fun AnimatedTextLayout(
     overflow: TextOverflow = TextOverflow.Clip,
     drawPadding: Dp = 0.dp,
     holder: LayoutHolder = remember { LayoutHolder() },
+    onLayoutChanged: ((SegmentedTextLayout) -> Unit)? = null,
     onDraw: DrawScope.(SegmentedTextLayout) -> Unit,
 ) {
     val measurer = rememberTextMeasurer(cacheSize = 4)
@@ -93,7 +97,9 @@ internal fun AnimatedTextLayout(
         if (previous == null || previous.layout.layoutInput != result.layoutInput || previous.layout.size != result.size ||
             previous.granularity != granularity || previous.requestedMode != renderMode
         ) {
-            holder.value = SegmentedTextLayout.build(result, granularity, renderMode, measurer).also { it.requestedMode = renderMode }
+            val built = SegmentedTextLayout.build(result, granularity, renderMode, measurer).also { it.requestedMode = renderMode }
+            holder.value = built
+            onLayoutChanged?.invoke(built)
         }
         holder.originPx = pad.toFloat()
         val w = result.size.width + 2 * pad
