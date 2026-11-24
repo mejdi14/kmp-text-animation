@@ -7,6 +7,7 @@ import com.mejdi14.kmp_text_animation.showcase.demos.textMorphDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textPressureDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textScrambleDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textShimmerDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.trueFocusDemo
 
 enum class DemoCategory { Entrance, Continuous, Transition, Interactive, Scroll }
 
@@ -29,7 +30,7 @@ object DemoRegistry {
         textMorphDemo,
         textPressureDemo,
         textScrambleDemo,
-        placeholderDemo("true-focus", "True Focus", "A focus frame hops between words while the rest stay blurred.", DemoCategory.Continuous),
+        trueFocusDemo,
         placeholderDemo("split-text", "Split Text", "Text is split into characters, words or lines that animate in with a stagger.", DemoCategory.Entrance),
         placeholderDemo("aurora-text", "Aurora Text", "Slow drifting aurora colors flow through the letters.", DemoCategory.Continuous),
         placeholderDemo("variable-proximity", "Variable Proximity", "Each letter reacts to how close the pointer is, shifting its weight.", DemoCategory.Interactive),
