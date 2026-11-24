@@ -5,8 +5,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 
 | # | Effect | Group | Status | Branch / notes |
 |---|---|---|---|---|
-| 1 | BlurText | C01 | ⬜ | |
-| 2 | TextShimmer | C01 | ⬜ | |
+| 1 | BlurText | C01 | ✅ | merged from `feat-blur-text`; all 5 effects, custom keyframes, loop, hover/click replay; see `docs/features/blur-text.md` |
+| 2 | TextShimmer | C01 | ✅ | merged from `feat-text-shimmer`; see `docs/features/text-shimmer.md` |
 | 3 | TextMorph | C02 | ⬜ | |
 | 4 | TextPressure | C02 | ⬜ | |
 | 5 | TextScramble | C03 | ⬜ | |

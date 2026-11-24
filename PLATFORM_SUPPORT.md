@@ -24,8 +24,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 
 | Effect | Android | iOS | Desktop | Web | Notes |
 |---|---|---|---|---|---|
-| BlurText | | | | | |
-| TextShimmer | | | | | |
+| BlurText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | GraphicsLayer + BlurEffect; Android < 12 uses multi-pass offset blur approximation |
+| TextShimmer | ✅ | ✅ | ✅ | ✅ | saveLayer + SrcAtop gradient; no capability needed |
 | TextMorph | | | | | |
 | TextPressure | | | | | |
 | TextScramble | | | | | |
@@ -47,3 +47,7 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 
 ## Known platform limitations
 (Coordinators append.)
+- **BlurText**: on Android < 12 (no `RenderEffect`) blur is approximated by drawing each piece 9–17
+  times on rings of offsets — softer edges and more draw calls than a true Gaussian. Units are dp
+  instead of CSS px; no `rootMargin`; no reduced-motion handling.
+- **TextShimmer**: multi-line text sweeps all lines at once (band spans the layout width).

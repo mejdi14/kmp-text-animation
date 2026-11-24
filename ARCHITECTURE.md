@@ -82,3 +82,13 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
 
 ## Decisions added by feature work
 (Coordinators append new shared infra / decisions here.)
+- **C01 (no new shared infra).** Patterns worth reusing:
+  - *Per-piece blur* (`internal/blurtext/BlurTextRenderer.kt`): one reusable `GraphicsLayer` per
+    piece slot (from `LocalGraphicsContext`) with `BlurEffect(TileMode.Decal)`, recorded in the draw
+    phase; sigma from CSS px via radius = (σ − 0.5)/0.57735; multi-pass ring fallback when
+    `!PlatformCapabilities.supportsRenderEffect`. Candidate for promotion to `internal/` if
+    another effect (TrueFocus, ScrollReveal, TextEffect) needs per-segment blur.
+  - *Analytic spring* (`springRemaining` in `BlurTextMotion.kt`) reproducing Motion's
+    `visualDuration`/`bounce` spring as a pure function of time.
+  - *Glyph-clipped gradient* (TextShimmer): `saveLayer` → draw text → gradient rect with
+    `BlendMode.SrcAtop` → restore (equivalent of CSS `background-clip: text`).
