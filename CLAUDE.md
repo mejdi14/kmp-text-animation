@@ -150,18 +150,18 @@ intensity controls where relevant, replay & pause via `PlaybackControls`, intera
 Kotlin usage `code` string), reusable controls in `controls/`. Demos must use the public API only.
 
 ## 7. Orchestration protocol (distributed, no master coordinator)
-**Environment limitation (documented):** the desktop app only lets a session start other sessions
-in a turn that came from a human. Turns triggered by automation or by another session's report
-cannot start sessions; there they become proposal cards. Creating a scheduled task was also
-blocked by the permission classifier. So the chain works like this:
-- A coordinator starts its **two worker sessions in its first turn**. That turn came from the
-  user's click or message, so starting sessions is allowed there.
-- At the end, the coordinator **proposes the next coordinator** as a card (`start_session`
-  `initiation: "own_initiative"`, fresh context). The owner starts each group with one click on that
-  card. Every coordinator is still a fresh, independent session.
-- If the owner later allows scheduled tasks, a recurring task can run each group instead, with the
-  same steps and worker subagents in worktrees. Use a lock file, `.orchestration/lock`, so only one
-  run works at a time.
+**Active mechanism (since 2026-11-24): scheduled task `textmotion-coordinator`** (hourly, owner
+approved, Auto mode; prompt at `~/.claude/scheduled-tasks/textmotion-coordinator/SKILL.md`). Each run
+is a fresh coordinator: it takes `.orchestration/lock` (gitignored; stale after 8 h), skips if
+main is dirty or a `feat-<A>`/`feat-<B>` worktree was modified in the last 3 h, then runs ONE group
+(the `Next:` line) with two **Agent-tool subagent workers** (`isolation: "worktree"`, branch renamed
+to `feat-<kebab>-sched`), reviews, merges, compiles, documents, pushes and releases the lock. No
+cards and no session starts are needed. After group 10 it does the Final Integration, then sets
+`Next: DONE`. A session-based coordinator (like C03) must hold the lock and delete it when done.
+
+**Background limitation:** the desktop app only lets a session start other sessions in a turn that
+came from a human; automated turns can only propose cards. The steps below still apply to a
+coordinator started manually as a session (its workers may be sessions or subagents).
 
 | Coordinator | Feature A | Feature B |
 |---|---|---|
@@ -196,7 +196,8 @@ blocked by the permission classifier. So the chain works like this:
    `ARCHITECTURE.md` (new infra) and `REFERENCES.md`. Rewrite `HANDOFF.md`: set `Next:` to the next
    group (or `FINAL INTEGRATION` after group 10) and add notes for the next workers. Commit, then
    `git push origin main`.
-5. Propose the next coordinator as an `own_initiative` card. Title: "Coordinator NN+1: A + B".
+5. (Session-based coordinators only, when the scheduled task is disabled.) Propose the next
+   coordinator as an `own_initiative` card. Title: "Coordinator NN+1: A + B".
    Prompt: "You are Coordinator NN+1 of TextMotion: features A and B. Read CLAUDE.md and follow §7."
    Add a short `background`. After group 10, propose "TextMotion Final Integration" instead (§9).
    End with a summary of at most 5 lines whose first line is `GROUP NN COMPLETE`.
