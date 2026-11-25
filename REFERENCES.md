@@ -25,3 +25,5 @@ and/or ask the author for permission. Nothing has been published.
 
 ## Additional sources
 (Feature sessions append articles, specs or code consulted.)
+- TextRoll: ibelick/motion-primitives `text-roll.tsx` + docs examples (custom variants, custom transition/delay), re-checked in C07.
+- GradientText: DavidHDev/react-bits `GradientText` (current source: variants, direction, yoyo, glow, pauseOnHover, followPointer), re-checked in C07.

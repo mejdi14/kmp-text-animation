@@ -132,3 +132,9 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
   (`FuzzShaderCompileTest`). ScrollReveal adds no infra (reuses `SegmentBlurRenderer`,
   `trackViewportPosition`, and `splittext.emPx`/`estimateUnitCount` — candidates to move to shared
   internals); its `SmoothedProgress` (`internal/scrollreveal/`) is reusable for ScrollFloat.
+- **C07:** no new shared infra. TextRoll (`internal/textroll/`) draws each unit twice from one
+  paragraph with `Transform3D` + backface culling and `SegmentBlurRenderer` (2 slots per unit) — a
+  pattern for TextLoop/TextEffect 3D presets. GradientText (`internal/gradienttext/`) reuses
+  `AuroraMath.cssGradientLine` + `blurRadiusForSigma`; its renderer caches repeating linear,
+  radial-blob and sweep brushes and draws glow via a blurred `GraphicsLayer` (multi-pass fallback);
+  `GradientDynamics` (spring-smoothed pointer + frozen time) is reusable for hover-driven effects.

@@ -17,8 +17,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 | 10 | RotatingText | C05 | ✅ | merged from `feat-rotating-text-sched`; staggered spring exit-then-enter per char/word/line (Slide/Flip/Blur/Scale/Drop), animated container size, highlight pill, `RotatingTextState` next/previous/jumpTo/reset; see `docs/features/rotating-text.md` |
 | 11 | FuzzyText | C06 | ✅ | merged from `feat-fuzzy-text-sched`; per-slice random displacement of the text raster via `RuntimeShaderEffect` (AGSL 13+/SkSL) with the reference canvas slice-blit fallback on Android < 13; hover/click/always triggers, glitch mode, click burst, intro, gradient, RGB colour split; see `docs/features/fuzzy-text.md` |
 | 12 | ScrollReveal | C06 | ✅ | merged from `feat-scroll-reveal-sched`; scroll-scrubbed per-word opacity/blur reveal + block rotation (Fade/Rise/Flip/Scale, Word/Character/Line), Enter mode, smoothing, external `scrollProgress`; see `docs/features/scroll-reveal.md` |
-| 13 | TextRoll | C07 | ⬜ | |
-| 14 | GradientText | C07 | ⬜ | |
+| 13 | TextRoll | C07 | ✅ | merged from `feat-text-roll-sched`; two stacked per-grapheme layers (enter pivot 50%/25%, exit 50%/100%) with `Transform3D` rotateX + perspective and backface culling, index-delay lambdas, `Roll`/`BlurRoll`/`Slide` variants + custom keyframes; see `docs/features/text-roll.md` |
+| 14 | GradientText | C07 | ✅ | merged from `feat-gradient-text-sched`; Linear/Flow/Conic animated gradients clipped to glyphs (`SrcAtop`), angle/direction, scale, yoyo, glow, animated pill border, pauseOnHover, followPointer spring; see `docs/features/gradient-text.md` |
 | 15 | TextLoop | C08 | ⬜ | |
 | 16 | TextShimmerWave | C08 | ⬜ | |
 | 17 | ScrollFloat | C09 | ⬜ | |

@@ -36,8 +36,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 | RotatingText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Draw-phase per-unit transforms via SplitText renderer; Blur effect uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
 | FuzzyText | ⚠️ / ✅ 13+ | ✅ | ✅ | ✅ | Slice displacement in a runtime shader (AGSL on Android 13+, SkSL on Skia targets); Android < 13 uses the reference canvas slice re-blit (`drawImage` per slice, ColorMatrix colour split) |
 | ScrollReveal | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Draw-phase scroll progress (`trackViewportPosition`); per-word blur via `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
-| TextRoll | | | | | |
-| GradientText | | | | | |
+| TextRoll | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-grapheme `Transform3D` projective transforms (two layers per unit, backface culling); `BlurRoll` uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
+| GradientText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Cached linear/radial/sweep `Brush` composited onto glyphs (`SrcAtop`), no shader; `glow` uses `BlurEffect` (Android < 12 multi-pass offset approximation) |
 | TextLoop | | | | | |
 | TextShimmerWave | | | | | |
 | ScrollFloat | | | | | |
@@ -83,3 +83,9 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 - **ScrollReveal**: `ScrollRange` fractions approximate `0.2*min(h, viewport)` as `0.2*h`; GSAP end clamp
   not replicated; viewport is the window (custom scroll containers: pass `scrollProgress`); no
   reduced-motion; pause/restart only affect the Enter-mode clock.
+- **TextRoll**: delays in ms (reference: seconds); `transition` reduced to an easing (no springs);
+  `onFinished` fires when the latest layer ends; text change restarts the roll; Clip render mode
+  (Arabic/Indic) may cut overhanging ink while rotating; Android < 12 `BlurRoll` uses multi-pass blur.
+- **GradientText**: Android < 12 glow is an alpha-compensated multi-pass offset approximation; no
+  reduced-motion; followPointer spring/pull freeze with the clock when paused/invisible (reference keeps
+  settling); variant/glow apply to the whole string; conic orientation compensated by −90°.

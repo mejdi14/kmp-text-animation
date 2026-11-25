@@ -216,3 +216,33 @@ ScrollReveal(
 )
 // Column(Modifier.verticalScroll(rememberScrollState())) { ScrollReveal("When does a man die?") }
 ```
+
+### TextRoll
+Letters roll vertically one after another: two stacked 3D copies per grapheme (motion-primitives Text Roll).
+```kotlin
+TextRoll(
+    text, modifier, style, variants = TextRollVariants.Roll /* BlurRoll, Slide, custom */,
+    enterDelayMillis = { i -> i * 100 }, exitDelayMillis = { i -> i * 100 + 200 },
+    clipToBounds = false, perspective = 10000.dp, granularity = TextGranularity.Character,
+    renderMode = SegmentRenderMode.Auto, durationMillis = 500, delayMillis = 0,
+    easing = TextEasing.MotionEaseIn, trigger = AnimationTrigger.OnVisible(), repeat = Repeat.Once,
+    speed = 1f, controller = null, onFinished = null,
+)
+// TextRoll("tom is in the big house", variants = TextRollVariants.Slide, clipToBounds = true,
+//          enterDelayMillis = TextRollDefaults.staggered(50, 50))
+```
+`TextRollVariants(enter, exit)` of `TextRollVariant(initial, animate, origin)` with
+`TextRollKeyframe(rotationX, rotationY, x, y, scale, opacity, blur)`.
+
+### GradientText
+Animated multi-colour gradient clipped to the glyphs, optional animated pill border (React Bits Gradient Text).
+```kotlin
+GradientText(
+    text, modifier, style, colors = GradientTextDefaults.Colors, cycleDurationMillis = 8_000,
+    variant = GradientTextVariant.Linear /* Flow, Conic */, angle = 90f,
+    direction = null /* Horizontal, Vertical, Diagonal */, gradientScale = 3f, yoyo = true,
+    glow = 0f, showBorder = false, borderWidth = 1.5.dp, pauseOnHover = false,
+    followPointer = false, speed = 1f, controller = null,
+)
+// GradientText("Add a splash of color!", showBorder = true)
+```
