@@ -10,6 +10,7 @@ import com.mejdi14.kmp_text_animation.showcase.demos.textPressureDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textScrambleDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textShimmerDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.trueFocusDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.variableProximityDemo
 
 enum class DemoCategory { Entrance, Continuous, Transition, Interactive, Scroll }
 
@@ -35,7 +36,7 @@ object DemoRegistry {
         trueFocusDemo,
         splitTextDemo,
         auroraTextDemo,
-        placeholderDemo("variable-proximity", "Variable Proximity", "Each letter reacts to how close the pointer is, shifting its weight.", DemoCategory.Interactive),
+        variableProximityDemo,
         placeholderDemo("rotating-text", "Rotating Text", "A list of phrases rotates in place with a sliding transition.", DemoCategory.Transition),
         placeholderDemo("fuzzy-text", "Fuzzy Text", "Text with a fuzzy, static-like edge that intensifies on hover.", DemoCategory.Interactive),
         placeholderDemo("scroll-reveal", "Scroll Reveal", "Words unblur and fade in progressively as you scroll.", DemoCategory.Scroll),
