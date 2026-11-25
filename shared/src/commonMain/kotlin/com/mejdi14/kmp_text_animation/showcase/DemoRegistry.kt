@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.mejdi14.kmp_text_animation.showcase.demos.auroraTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.blurTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.fuzzyTextDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.gradientTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.rotatingTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.scrollRevealDemo
@@ -45,7 +46,7 @@ object DemoRegistry {
         fuzzyTextDemo,
         scrollRevealDemo,
         textRollDemo,
-        placeholderDemo("gradient-text", "Gradient Text", "Animated multi-color gradient painted across the glyphs.", DemoCategory.Continuous),
+        gradientTextDemo,
         placeholderDemo("text-loop", "Text Loop", "Cycles through a set of strings with smooth enter and exit motion.", DemoCategory.Transition),
         placeholderDemo("text-shimmer-wave", "Text Shimmer Wave", "A wave of shimmer ripples through the letters with a vertical lift.", DemoCategory.Continuous),
         placeholderDemo("scroll-float", "Scroll Float", "Letters float up into place as the text scrolls into view.", DemoCategory.Scroll),
