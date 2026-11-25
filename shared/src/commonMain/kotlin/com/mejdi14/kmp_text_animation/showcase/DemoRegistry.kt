@@ -1,6 +1,7 @@
 package com.mejdi14.kmp_text_animation.showcase
 
 import androidx.compose.runtime.Composable
+import com.mejdi14.kmp_text_animation.showcase.demos.auroraTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.blurTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textMorphDemo
@@ -32,7 +33,7 @@ object DemoRegistry {
         textScrambleDemo,
         trueFocusDemo,
         placeholderDemo("split-text", "Split Text", "Text is split into characters, words or lines that animate in with a stagger.", DemoCategory.Entrance),
-        placeholderDemo("aurora-text", "Aurora Text", "Slow drifting aurora colors flow through the letters.", DemoCategory.Continuous),
+        auroraTextDemo,
         placeholderDemo("variable-proximity", "Variable Proximity", "Each letter reacts to how close the pointer is, shifting its weight.", DemoCategory.Interactive),
         placeholderDemo("rotating-text", "Rotating Text", "A list of phrases rotates in place with a sliding transition.", DemoCategory.Transition),
         placeholderDemo("fuzzy-text", "Fuzzy Text", "Text with a fuzzy, static-like edge that intensifies on hover.", DemoCategory.Interactive),
