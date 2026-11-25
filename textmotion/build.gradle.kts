@@ -50,6 +50,10 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        // Test-only: Skia natives so JVM tests can compile runtime shaders (no rendering, no app).
+        jvmTest.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
     }
 }
 
