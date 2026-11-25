@@ -15,8 +15,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 | 8 | AuroraText | C04 | ✅ | merged from `feat-aurora-text-sched`; 135° multi-colour gradient clipped to glyphs (`saveLayer` + `SrcAtop`), reference keyframes for position/rotate/scale, pauses when invisible; see `docs/features/aurora-text.md` |
 | 9 | VariableProximity | C05 | ✅ | merged from `feat-variable-proximity-sched`; per-letter variable-font axes (wght/wdth/opsz/ital/slnt) driven by pointer distance (linear/exponential/gaussian falloff, smoothing), optional Oklab colour mix/scale/lift/idle wave, `ProximityArea` container tracking; reuses `internal/font/`; see `docs/features/variable-proximity.md` |
 | 10 | RotatingText | C05 | ✅ | merged from `feat-rotating-text-sched`; staggered spring exit-then-enter per char/word/line (Slide/Flip/Blur/Scale/Drop), animated container size, highlight pill, `RotatingTextState` next/previous/jumpTo/reset; see `docs/features/rotating-text.md` |
-| 11 | FuzzyText | C06 | ⬜ | |
-| 12 | ScrollReveal | C06 | ⬜ | |
+| 11 | FuzzyText | C06 | ✅ | merged from `feat-fuzzy-text-sched`; per-slice random displacement of the text raster via `RuntimeShaderEffect` (AGSL 13+/SkSL) with the reference canvas slice-blit fallback on Android < 13; hover/click/always triggers, glitch mode, click burst, intro, gradient, RGB colour split; see `docs/features/fuzzy-text.md` |
+| 12 | ScrollReveal | C06 | ✅ | merged from `feat-scroll-reveal-sched`; scroll-scrubbed per-word opacity/blur reveal + block rotation (Fade/Rise/Flip/Scale, Word/Character/Line), Enter mode, smoothing, external `scrollProgress`; see `docs/features/scroll-reveal.md` |
 | 13 | TextRoll | C07 | ⬜ | |
 | 14 | GradientText | C07 | ⬜ | |
 | 15 | TextLoop | C08 | ⬜ | |

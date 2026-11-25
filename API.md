@@ -186,3 +186,33 @@ RotatingText(
 // RotatingText(listOf("React", "Compose", "Kotlin"), staggerMillis = 25)
 ```
 
+### FuzzyText
+Scanline-displaced "fuzzy" text that intensifies on hover (React Bits Fuzzy Text).
+```kotlin
+FuzzyText(
+    text, modifier, style, baseIntensity = 0.18f, hoverIntensity = 0.5f, fuzzRange = 30.dp,
+    direction = FuzzyDirection.Horizontal /* Vertical, Both */, sliceSize = 1.dp, fps = 60,
+    enableHover = true, trigger = FuzzyTrigger.Hover /* Click, Always */,
+    transitionDurationMillis = 0, clickEffect = false,
+    glitchMode = false, glitchIntervalMillis = 2000, glitchDurationMillis = 200,
+    gradient = null, colorSplit = 0f, intro = false, introDurationMillis = 1400,
+    pointerInteraction = PointerInteraction.Pointer, speed = 1f, controller = null,
+)
+// FuzzyText("404", hoverIntensity = 0.6f)
+```
+
+### ScrollReveal
+Words fade/unblur and the block straightens as it scrolls through the viewport (React Bits Scroll Reveal).
+```kotlin
+ScrollReveal(
+    text, modifier, style, effect = ScrollRevealEffect.Fade /* Rise, Flip, Scale */,
+    granularity = TextGranularity.Word, enableBlur = true, baseOpacity = 0.1f, baseRotation = 3f,
+    blurStrength = 4.dp, baseOffset = 0.dp, stagger = 0.05f, highlightColor = Color.Unspecified,
+    mode = ScrollRevealMode.Scrub /* Enter */, scrollRange = ScrollRevealDefaults.WordRange,
+    rotationRange = ScrollRevealDefaults.RotationRange, scrollProgress = null, smoothingMillis = 0,
+    durationMillis = 800, renderMode = SegmentRenderMode.Auto,
+    trigger = AnimationTrigger.OnVisible(minFractionVisible = 0.2f), speed = 1f,
+    controller = null, onFinished = null,
+)
+// Column(Modifier.verticalScroll(rememberScrollState())) { ScrollReveal("When does a man die?") }
+```

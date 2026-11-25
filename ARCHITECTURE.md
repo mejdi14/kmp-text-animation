@@ -124,3 +124,11 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
   its analytic spring + exit-then-enter machine (`internal/rotatingtext/`) is a pattern for TextLoop.
   VariableProximity adds no infra: reuses `internal/font/` + `drawPressureGlyph`, public
   `ProximityArea`/`Modifier.proximityArea` for container-wide pointer tracking.
+- **C06:** FuzzyText is the first user of `RuntimeShaderEffect`: one shader source valid as AGSL and
+  SkSL (`internal/fuzzy/FuzzShader.kt`), text recorded once into a `GraphicsLayer` with the shader as
+  render effect, uniforms updated per frame; `ImageBitmap` slice-blit fallback when shaders are
+  unavailable or fail to compile — pattern for GlitchText. Build: `textmotion` `jvmTest` depends on
+  `compose.desktop.currentOs` (test-only) so JVM unit tests compile SkSL with the real Skia compiler
+  (`FuzzShaderCompileTest`). ScrollReveal adds no infra (reuses `SegmentBlurRenderer`,
+  `trackViewportPosition`, and `splittext.emPx`/`estimateUnitCount` — candidates to move to shared
+  internals); its `SmoothedProgress` (`internal/scrollreveal/`) is reusable for ScrollFloat.

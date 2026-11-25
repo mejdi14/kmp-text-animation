@@ -34,8 +34,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 | AuroraText | ✅ | ✅ | ✅ | ✅ | Plain `Brush` linear gradient composited onto glyphs (`SrcAtop`); no shader needed, identical on all platforms |
 | VariableProximity | ⚠️ / ✅ 8+ | ✅ | ✅ | ✅ | Same variable-font path as TextPressure (129 quantized levels, cached typefaces); Android < 8 synthesizes weight/width/slant (no `opsz`) |
 | RotatingText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Draw-phase per-unit transforms via SplitText renderer; Blur effect uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
-| FuzzyText | | | | | |
-| ScrollReveal | | | | | |
+| FuzzyText | ⚠️ / ✅ 13+ | ✅ | ✅ | ✅ | Slice displacement in a runtime shader (AGSL on Android 13+, SkSL on Skia targets); Android < 13 uses the reference canvas slice re-blit (`drawImage` per slice, ColorMatrix colour split) |
+| ScrollReveal | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Draw-phase scroll progress (`trackViewportPosition`); per-word blur via `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
 | TextRoll | | | | | |
 | GradientText | | | | | |
 | TextLoop | | | | | |
@@ -76,3 +76,10 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 - **RotatingText**: only the `wait` presence mode (no `sync`/`popLayout`); `initial/animate/exit`
   overrides replaced by one `transition` parameter; Flip z-origin approximated by a vertical
   translation; units wrapping across lines use their union box; `controller.seekTo` ignored.
+- **FuzzyText**: `transitionDuration` (frames) became `transitionDurationMillis`; default size from the
+  style (weight 900 only when unset); click/burst fire on press; no reduced-motion; `seekTo` freezes the
+  frame; ink overhanging the line box by > 25 % of line height may be clipped. AGSL on a real Android
+  13+ device and the < 13 fallback are unverified (SkSL compile is unit-tested on JVM).
+- **ScrollReveal**: `ScrollRange` fractions approximate `0.2*min(h, viewport)` as `0.2*h`; GSAP end clamp
+  not replicated; viewport is the window (custom scroll containers: pass `scrollProgress`); no
+  reduced-motion; pause/restart only affect the Enter-mode clock.
