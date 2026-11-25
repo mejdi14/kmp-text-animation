@@ -3,6 +3,7 @@ package com.mejdi14.kmp_text_animation.showcase
 import androidx.compose.runtime.Composable
 import com.mejdi14.kmp_text_animation.showcase.demos.auroraTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.blurTextDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.fuzzyTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.rotatingTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.splitTextDemo
@@ -39,7 +40,7 @@ object DemoRegistry {
         auroraTextDemo,
         variableProximityDemo,
         rotatingTextDemo,
-        placeholderDemo("fuzzy-text", "Fuzzy Text", "Text with a fuzzy, static-like edge that intensifies on hover.", DemoCategory.Interactive),
+        fuzzyTextDemo,
         placeholderDemo("scroll-reveal", "Scroll Reveal", "Words unblur and fade in progressively as you scroll.", DemoCategory.Scroll),
         placeholderDemo("text-roll", "Text Roll", "Letters roll vertically like a slot machine, one after another.", DemoCategory.Entrance),
         placeholderDemo("gradient-text", "Gradient Text", "Animated multi-color gradient painted across the glyphs.", DemoCategory.Continuous),
