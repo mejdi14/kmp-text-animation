@@ -1,7 +1,6 @@
 # TextRoll
 
-Reference: motion-primitives.com/docs/text-roll (spec: `docs/reference-specs/motion-primitives-magicui.md`
-§4; behaviour re-checked against the current `text-roll.tsx` and the three docs examples).
+Reference: motion-primitives.com/docs/text-roll (spec §4 of `docs/reference-specs/motion-primitives-magicui.md`, re-checked against current `text-roll.tsx` + docs examples).
 
 ## API
 ```kotlin
