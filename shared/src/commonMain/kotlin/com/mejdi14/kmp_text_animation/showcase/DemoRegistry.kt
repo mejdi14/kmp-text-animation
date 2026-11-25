@@ -10,6 +10,7 @@ import com.mejdi14.kmp_text_animation.showcase.demos.scrollRevealDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.splitTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textMorphDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textPressureDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.textRollDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textScrambleDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textShimmerDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.trueFocusDemo
@@ -43,7 +44,7 @@ object DemoRegistry {
         rotatingTextDemo,
         fuzzyTextDemo,
         scrollRevealDemo,
-        placeholderDemo("text-roll", "Text Roll", "Letters roll vertically like a slot machine, one after another.", DemoCategory.Entrance),
+        textRollDemo,
         placeholderDemo("gradient-text", "Gradient Text", "Animated multi-color gradient painted across the glyphs.", DemoCategory.Continuous),
         placeholderDemo("text-loop", "Text Loop", "Cycles through a set of strings with smooth enter and exit motion.", DemoCategory.Transition),
         placeholderDemo("text-shimmer-wave", "Text Shimmer Wave", "A wave of shimmer ripples through the letters with a vertical lift.", DemoCategory.Continuous),
