@@ -91,6 +91,29 @@ internal class SegmentedTextLayout(
             return SegmentedTextLayout(layout, granularity, mode, segments)
         }
 
+        /**
+         * Builds a layout whose segments are the caller-provided `[start, end)` character ranges
+         * (e.g. split on a custom separator). Every range is one drawable unit, in order; text
+         * outside the ranges is never drawn. Shaping strategy follows [requestedMode] like [build].
+         */
+        fun buildFromRanges(
+            layout: TextLayoutResult,
+            ranges: List<IntArray>,
+            requestedMode: SegmentRenderMode,
+            measurer: TextMeasurer,
+        ): SegmentedTextLayout {
+            val text = layout.layoutInput.text
+            val mode = if (requestedMode == SegmentRenderMode.Auto) {
+                if (needsShapingContext(text.text)) SegmentRenderMode.Clip else SegmentRenderMode.Isolated
+            } else requestedMode
+            val input = layout.layoutInput
+            val fs = input.style.fontSize
+            val fontSizePx = if (fs.isSp) with(input.density) { fs.toPx() } else 16f * input.density.density
+            val list = ranges.mapIndexed { i, r -> Range(r[0], r[1], i) }
+            val segments = buildSegments(layout, list, mode, measurer, TextGranularity.Word, fontSizePx)
+            return SegmentedTextLayout(layout, TextGranularity.Word, mode, segments).also { it.requestedMode = requestedMode }
+        }
+
         private class Range(val start: Int, val end: Int, val word: Int)
 
         private fun lineRanges(layout: TextLayoutResult): List<Range> {

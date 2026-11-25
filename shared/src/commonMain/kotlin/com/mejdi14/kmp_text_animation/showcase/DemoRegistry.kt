@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.mejdi14.kmp_text_animation.showcase.demos.auroraTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.blurTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.placeholderDemo
+import com.mejdi14.kmp_text_animation.showcase.demos.rotatingTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.splitTextDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textMorphDemo
 import com.mejdi14.kmp_text_animation.showcase.demos.textPressureDemo
@@ -37,7 +38,7 @@ object DemoRegistry {
         splitTextDemo,
         auroraTextDemo,
         variableProximityDemo,
-        placeholderDemo("rotating-text", "Rotating Text", "A list of phrases rotates in place with a sliding transition.", DemoCategory.Transition),
+        rotatingTextDemo,
         placeholderDemo("fuzzy-text", "Fuzzy Text", "Text with a fuzzy, static-like edge that intensifies on hover.", DemoCategory.Interactive),
         placeholderDemo("scroll-reveal", "Scroll Reveal", "Words unblur and fade in progressively as you scroll.", DemoCategory.Scroll),
         placeholderDemo("text-roll", "Text Roll", "Letters roll vertically like a slot machine, one after another.", DemoCategory.Entrance),
