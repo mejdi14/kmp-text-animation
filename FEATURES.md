@@ -11,8 +11,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 | 4 | TextPressure | C02 | ✅ | merged from `feat-text-pressure`; all reference props + idle/ripple extras; created variable-font infra (`internal/font/`, bundled Roboto Flex); see `docs/features/text-pressure.md` |
 | 5 | TextScramble | C03 | ✅ | merged from `feat-text-scramble`; all reference props, deterministic seeded schedule (`seed`), stable width; see `docs/features/text-scramble.md` |
 | 6 | TrueFocus | C03 | ✅ | merged from `feat-true-focus`; auto/manual (hover/touch) modes, 4 frame styles, smooth/spring easing; extracted shared `SegmentBlurRenderer`; see `docs/features/true-focus.md` |
-| 7 | SplitText | C04 | ⬜ | |
-| 8 | AuroraText | C04 | ⬜ | |
+| 7 | SplitText | C04 | ✅ | merged from `feat-split-text-sched`; 7 effect presets (rise/fade/blur/flip/pop/skew/wave), custom from/to keyframes, GSAP `distribute` stagger, mask, accent flash, hover lift/wave springs, hover/click replay, loop; see `docs/features/split-text.md` |
+| 8 | AuroraText | C04 | ✅ | merged from `feat-aurora-text-sched`; 135° multi-colour gradient clipped to glyphs (`saveLayer` + `SrcAtop`), reference keyframes for position/rotate/scale, pauses when invisible; see `docs/features/aurora-text.md` |
 | 9 | VariableProximity | C05 | ⬜ | |
 | 10 | RotatingText | C05 | ⬜ | |
 | 11 | FuzzyText | C06 | ⬜ | |

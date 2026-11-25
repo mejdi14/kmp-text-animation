@@ -113,3 +113,8 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
     ScrollReveal, TextEffect, SplitText blur variants.** Call `release()` on dispose.
   - Pattern: TextScramble's pure seeded schedule (`internal/textscramble/ScrambleMath.kt`, hash of
     seed/tick/slot → glyph) — reuse for DecryptedText.
+- **C04 (no new shared infra):** SplitText reuses `SegmentBlurRenderer`, `Transform3D`, `Stagger`,
+  `trackPointer`; its GSAP `distribute({each, from})` stagger and semi-implicit spring hover
+  (`internal/splittext/SplitTextMotion.kt`, `SplitTextHover.kt`) are reusable patterns for ScrollFloat /
+  TextEffect. AuroraText reuses TextShimmer's glyph-mask pattern (`saveLayer` + `SrcAtop`) with a
+  cached `Brush` (`internal/auroratext/AuroraBrushCache.kt`) — reuse the cache pattern for GradientText.

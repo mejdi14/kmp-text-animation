@@ -127,3 +127,31 @@ TrueFocus(
 )
 // TrueFocus("True Focus", manualMode = true, glowColor = Color(0x9900FF00))
 ```
+
+### SplitText
+Characters, words or lines animate in with a GSAP-style stagger (React Bits Split Text).
+```kotlin
+SplitText(
+    text, modifier, style,
+    effect = SplitTextEffect.Rise /* Fade, Blur, Flip, Pop, Skew, Wave */,
+    granularity = TextGranularity.Character, animationFrom = null, animationTo = null /* SplitTextKeyframe */,
+    mask = false, clipOverflow = null, accentColor = Color.Unspecified,
+    hoverEffect = SplitTextHoverEffect.None /* Lift, Wave */, replayOn = SplitTextReplay.None /* Hover, Click */,
+    durationMillis = 1250, delayMillis = 0, easing = null /* per-effect default */,
+    stagger = SplitTextDefaults.Stagger /* 50 ms each, from start */, renderMode = SegmentRenderMode.Auto,
+    trigger = AnimationTrigger.OnVisible(minFractionVisible = 0.1f), repeat = Repeat.Once,
+    speed = 1f, controller = null, onFinished = null,
+)
+// SplitText("Hello, you!", effect = SplitTextEffect.Flip, hoverEffect = SplitTextHoverEffect.Wave)
+```
+
+### AuroraText
+A drifting multi-colour aurora gradient flows through the glyphs (Magic UI Aurora Text).
+```kotlin
+AuroraText(
+    text, modifier, style, colors = AuroraTextDefaults.Colors /* #FF0080 #7928CA #0070F3 #38BDF8 */,
+    durationMillis = 10_000, angleDegrees = 135f, motionIntensity = 1f /* 0 = no rotate/scale sway */,
+    easing = TextEasing.EaseInOut, speed = 1f, controller = null,
+)
+// AuroraText("Ship faster", speed = 2f)
+```

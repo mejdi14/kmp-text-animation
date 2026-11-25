@@ -30,8 +30,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 | TextPressure | ⚠️ / ✅ 8+ | ✅ | ✅ | ✅ | Variable font via skiko `makeClone` / Android `Font(file, variationSettings)` (API 26+); Android < 8 synthesizes weight/width/slant |
 | TextScramble | ✅ | ✅ | ✅ | ✅ | Pure canvas text drawing (GlyphCache); no capability needed |
 | TrueFocus | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-word blur via shared `SegmentBlurRenderer` (BlurEffect); Android < 12 multi-pass fallback; glow = layered strokes |
-| SplitText | | | | | |
-| AuroraText | | | | | |
+| SplitText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-segment draw-phase transforms (translate/scale/skew/`Transform3D` flip); `blur` preset uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
+| AuroraText | ✅ | ✅ | ✅ | ✅ | Plain `Brush` linear gradient composited onto glyphs (`SrcAtop`); no shader needed, identical on all platforms |
 | VariableProximity | | | | | |
 | RotatingText | | | | | |
 | FuzzyText | | | | | |
@@ -62,3 +62,10 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 - **TrueFocus**: same Android < 12 blur approximation as BlurText. Glow is 3 widening translucent
   strokes instead of CSS `drop-shadow`. Word boxes come from the text layout's line box; wrapping is
   the text layout's, not flex-wrap. `controller.seekTo` is ignored (continuous effect).
+- **SplitText**: `rootMargin` (-100px) is approximated by the visibility threshold (`OnVisible(0.1f)`).
+  `staggerFrom = 'index'` and reduced-motion handling are not supported. Custom `from`/`to` keyframes
+  are full snapshots with a centred transform origin. Android < 12 `blur` preset uses the multi-pass
+  approximation. The stagger unit count is estimated from the text until the first layout.
+- **AuroraText**: rotated/scaled text can overflow the composable bounds (clipping parents cut it).
+  Glyph ink outside the line box is still painted by the gradient; colour emoji are tinted (as with
+  CSS `background-clip: text`).
