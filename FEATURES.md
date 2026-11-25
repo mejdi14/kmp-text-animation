@@ -13,8 +13,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ implemented & compiled (all t
 | 6 | TrueFocus | C03 | ✅ | merged from `feat-true-focus`; auto/manual (hover/touch) modes, 4 frame styles, smooth/spring easing; extracted shared `SegmentBlurRenderer`; see `docs/features/true-focus.md` |
 | 7 | SplitText | C04 | ✅ | merged from `feat-split-text-sched`; 7 effect presets (rise/fade/blur/flip/pop/skew/wave), custom from/to keyframes, GSAP `distribute` stagger, mask, accent flash, hover lift/wave springs, hover/click replay, loop; see `docs/features/split-text.md` |
 | 8 | AuroraText | C04 | ✅ | merged from `feat-aurora-text-sched`; 135° multi-colour gradient clipped to glyphs (`saveLayer` + `SrcAtop`), reference keyframes for position/rotate/scale, pauses when invisible; see `docs/features/aurora-text.md` |
-| 9 | VariableProximity | C05 | ⬜ | |
-| 10 | RotatingText | C05 | ⬜ | |
+| 9 | VariableProximity | C05 | ✅ | merged from `feat-variable-proximity-sched`; per-letter variable-font axes (wght/wdth/opsz/ital/slnt) driven by pointer distance (linear/exponential/gaussian falloff, smoothing), optional Oklab colour mix/scale/lift/idle wave, `ProximityArea` container tracking; reuses `internal/font/`; see `docs/features/variable-proximity.md` |
+| 10 | RotatingText | C05 | ✅ | merged from `feat-rotating-text-sched`; staggered spring exit-then-enter per char/word/line (Slide/Flip/Blur/Scale/Drop), animated container size, highlight pill, `RotatingTextState` next/previous/jumpTo/reset; see `docs/features/rotating-text.md` |
 | 11 | FuzzyText | C06 | ⬜ | |
 | 12 | ScrollReveal | C06 | ⬜ | |
 | 13 | TextRoll | C07 | ⬜ | |

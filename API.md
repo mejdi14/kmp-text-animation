@@ -155,3 +155,34 @@ AuroraText(
 )
 // AuroraText("Ship faster", speed = 2f)
 ```
+
+### VariableProximity
+Letters morph between two variable-font settings as the pointer approaches (React Bits Variable Proximity).
+```kotlin
+VariableProximity(
+    text, modifier, style, font = VariableFont.RobotoFlex,
+    fromFontVariationSettings = "'wght' 400, 'opsz' 9", toFontVariationSettings = "'wght' 1000, 'opsz' 40",
+    radius = 50.dp, falloff = ProximityFalloff.Linear /* Exponential, Gaussian */, smoothing = 0.2f,
+    fromColor = Color.Unspecified, toColor = Color.Unspecified, scale = 1f, lift = 0f /* em */,
+    idleWave = false, area = null /* rememberProximityArea() + Modifier.proximityArea(area) */,
+    pointerInteraction = PointerInteraction.Pointer, controller = null,
+)
+// val area = rememberProximityArea(); Box(Modifier.proximityArea(area)) { VariableProximity("Hover me", area = area) }
+```
+
+### RotatingText
+Cycles through phrases with staggered spring exit/enter per unit (React Bits Rotating Text).
+```kotlin
+RotatingText(
+    texts, modifier, style, effect = RotatingTextEffect.Slide /* Flip, Blur, Scale, Drop */,
+    direction = RotatingTextDirection.Up, splitBy = RotatingTextSplit.Characters,
+    rotationIntervalMillis = 2000, staggerMillis = 0, staggerFrom = RotatingTextStaggerFrom.First,
+    loop = true, auto = true, pauseOnHover = false, blur = 0.dp,
+    highlight = false, highlightColor = Color(0xFFA855F7), highlightTextColor = Color.Unspecified,
+    transition = null, animateInitial = false, renderMode = SegmentRenderMode.Auto,
+    state = null /* rememberRotatingTextState(): next/previous/jumpTo/reset */,
+    speed = 1f, controller = null, onNext = null,
+)
+// RotatingText(listOf("React", "Compose", "Kotlin"), staggerMillis = 25)
+```
+

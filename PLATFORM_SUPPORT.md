@@ -32,8 +32,8 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 | TrueFocus | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-word blur via shared `SegmentBlurRenderer` (BlurEffect); Android < 12 multi-pass fallback; glow = layered strokes |
 | SplitText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Per-segment draw-phase transforms (translate/scale/skew/`Transform3D` flip); `blur` preset uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
 | AuroraText | ✅ | ✅ | ✅ | ✅ | Plain `Brush` linear gradient composited onto glyphs (`SrcAtop`); no shader needed, identical on all platforms |
-| VariableProximity | | | | | |
-| RotatingText | | | | | |
+| VariableProximity | ⚠️ / ✅ 8+ | ✅ | ✅ | ✅ | Same variable-font path as TextPressure (129 quantized levels, cached typefaces); Android < 8 synthesizes weight/width/slant (no `opsz`) |
+| RotatingText | ⚠️ / ✅ 12+ | ✅ | ✅ | ✅ | Draw-phase per-unit transforms via SplitText renderer; Blur effect uses `SegmentBlurRenderer` (Android < 12 multi-pass fallback) |
 | FuzzyText | | | | | |
 | ScrollReveal | | | | | |
 | TextRoll | | | | | |
@@ -69,3 +69,10 @@ Legend: ✅ full · ⚠️ works with documented differences · ⛔ not availabl
 - **AuroraText**: rotated/scaled text can overflow the composable bounds (clipping parents cut it).
   Glyph ink outside the line box is still painted by the gradient; colour emoji are tinted (as with
   CSS `background-clip: text`).
+- **VariableProximity**: only `wght`, `wdth`, `opsz`, `ital`, `slnt` axes are rendered (others parsed
+  and ignored). Without a `ProximityArea` the pointer is tracked over the text bounds only (reference:
+  whole window). No reduced-motion switch for `idleWave`. RTL handled by mirroring word order per line
+  (no full bidi); complex-script words react as whole words.
+- **RotatingText**: only the `wait` presence mode (no `sync`/`popLayout`); `initial/animate/exit`
+  overrides replaced by one `transition` parameter; Flip z-origin approximated by a vertical
+  translation; units wrapping across lines use their union box; `controller.seekTo` ignored.

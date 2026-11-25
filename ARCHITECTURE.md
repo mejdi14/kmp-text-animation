@@ -118,3 +118,9 @@ Public shared types (root package): `TextEasing`, `Stagger`/`StaggerFrom`, `Anim
   (`internal/splittext/SplitTextMotion.kt`, `SplitTextHover.kt`) are reusable patterns for ScrollFloat /
   TextEffect. AuroraText reuses TextShimmer's glyph-mask pattern (`saveLayer` + `SrcAtop`) with a
   cached `Brush` (`internal/auroratext/AuroraBrushCache.kt`) — reuse the cache pattern for GradientText.
+- **C05:** new shared helper `SegmentedTextLayout.buildFromRanges(layout, ranges, mode, measurer)` —
+  segments from arbitrary character ranges (custom separators, words, lines); used by RotatingText,
+  reuse for TextLoop / TextRoll. RotatingText reuses SplitText's `SplitTextRenderer` + `CH_*` channels;
+  its analytic spring + exit-then-enter machine (`internal/rotatingtext/`) is a pattern for TextLoop.
+  VariableProximity adds no infra: reuses `internal/font/` + `drawPressureGlyph`, public
+  `ProximityArea`/`Modifier.proximityArea` for container-wide pointer tracking.
